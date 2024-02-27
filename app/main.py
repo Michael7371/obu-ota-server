@@ -18,7 +18,7 @@ def get_manifest(request: Request):
     try:
         files = glob.glob("/firmwares/*.tar.sig")
         print(files)
-        host_name = os.getenv("SERVER_NAME","localhost")
+        host_name = os.getenv("SERVER_HOST","localhost")
         response_manifest = manifest.add_contents(host_name, files)
         print(response_manifest)
         return response_manifest
