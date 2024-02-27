@@ -1,0 +1,35 @@
+version: '3'
+services:
+  ota_backend:
+    build:
+      context: .
+    image: ota_server:latest
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    volumes:
+      - ./firmwares:/firmwares
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '5'
+
+  ota_nginx:
+    build:
+      context: docker/nginx
+    image: ota_nginx:latest
+    restart: unless-stopped
+    ports:
+    - 80:80
+    environment:
+      OTA_USERNAME: ${OTA_USERNAME}
+      OTA_PASSWORD: ${OTA_PASSWORD}
+    volumes:
+      - ./docker/nginx/nginx-setup.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/set_up_users.sh:/docker-entrypoint.d/set_up_users.sh
+    depends_on:
+      - ota_backend
+    logging:
+      options:
+        max-size: '10m'
+        max-file: '5'
