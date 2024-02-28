@@ -9,6 +9,7 @@ services:
       - 8000:8000
     environment:
       SERVER_HOST: ${SERVER_HOST}
+      LOGGING_LEVEL: ${LOGGING_LEVEL}
     volumes:
       - ./firmwares:/firmwares
     logging:
