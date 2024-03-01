@@ -1,2 +1,5 @@
 *.tar.sig
 .env
+
+*.crt
+*.key
