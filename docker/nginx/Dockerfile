@@ -1,8 +1,9 @@
-FROM nginx:latest
+FROM nginx:1.25.4-alpine
 
-RUN apt-get update && apt-get install -y \
+RUN apk update && apk add \
     apache2-utils \
     jq \
-    openssl
+    openssl \
+    bash
 
 CMD ["nginx", "-g", "daemon off;"]
